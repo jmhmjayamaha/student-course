@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CreateStudentResponse {
 
-    private Integer studentId;
+    private Long studentId;
 
 }

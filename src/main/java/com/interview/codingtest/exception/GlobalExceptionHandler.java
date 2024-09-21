@@ -55,6 +55,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleNotFoundExceptionHandler(NotFoundException exception,
+            WebRequest reqeust) {
+        ErrorResponseDTO errorResponseDTO = ErrorResponseDTO.builder().apiPath(reqeust.getDescription(false))
+                .errorMessage(exception.getMessage()).errorCode(HttpStatus.NOT_FOUND.value())
+                .errorTime(LocalDateTime.now()).build();
+
+        return new ResponseEntity<ErrorResponseDTO>(errorResponseDTO, HttpStatus.NOT_FOUND);
+
+    }
+
     // Helper method to extract the root cause message
     private String getRootCauseMessage(Throwable ex) {
         Throwable rootCause = ex;
