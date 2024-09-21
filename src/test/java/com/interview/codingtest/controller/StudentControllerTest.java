@@ -205,7 +205,7 @@ public class StudentControllerTest {
         void retriveStudentTest() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.get("/api/students/10011")
                     .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id").value(10011));
+                    .andExpect(jsonPath("$.email").value("test01@gmail.com"));
         }
 
         @DisplayName("Retrieve student : student not found")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.interview.codingtest.dto.CreateStudentResponse;
 import com.interview.codingtest.dto.CreateUpdateStudentReqeust;
-import com.interview.codingtest.entity.Student;
+import com.interview.codingtest.dto.StudentDTO;
 import com.interview.codingtest.service.StudentService;
 
 import lombok.AllArgsConstructor;
@@ -43,11 +43,11 @@ public class StudentController {
     }
 
     @GetMapping
-    public Page<Student> retrieveStudents(@RequestParam(defaultValue = "0") int page,
+    public Page<StudentDTO> retrieveStudents(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         log.info("Retrieve students.");
 
-        Page<Student> response = studentService.retrieveStudents(page, size);
+        Page<StudentDTO> response = studentService.retrieveStudents(page, size);
 
         log.info("Retrieve students done.");
 
@@ -55,10 +55,10 @@ public class StudentController {
     }
 
     @GetMapping("/{student-id}")
-    public Student retrieveStudents(@PathVariable("student-id") Long studentId) {
+    public StudentDTO retrieveStudents(@PathVariable("student-id") Long studentId) {
         log.info("Retrieve student.");
 
-        Student response = studentService.retrieveStudent(studentId);
+        StudentDTO response = studentService.retrieveStudent(studentId);
 
         log.info("Retrieve students done.");
 

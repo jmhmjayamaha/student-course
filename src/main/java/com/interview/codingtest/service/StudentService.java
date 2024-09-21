@@ -4,18 +4,18 @@ import org.springframework.data.domain.Page;
 
 import com.interview.codingtest.dto.CreateStudentResponse;
 import com.interview.codingtest.dto.CreateUpdateStudentReqeust;
-import com.interview.codingtest.entity.Student;
+import com.interview.codingtest.dto.StudentDTO;
 
 public interface StudentService {
 
     CreateStudentResponse createStudent(CreateUpdateStudentReqeust request);
 
-    Student updateStudent(String studentId, CreateUpdateStudentReqeust request);
+    StudentDTO updateStudent(String studentId, CreateUpdateStudentReqeust request);
 
     void deleteStudent(Long studentId);
 
-    Page<Student> retrieveStudents(int page, int size);
+    Page<StudentDTO> retrieveStudents(int page, int size);
 
-    Student retrieveStudent(Long studentId);
+    StudentDTO retrieveStudent(Long studentId);
 
 }

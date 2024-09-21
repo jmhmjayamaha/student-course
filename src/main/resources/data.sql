@@ -39,3 +39,7 @@ INSERT INTO student (age, created_at, created_by, dob, email, first_name, last_n
 	VALUES (35, '2024-09-21 15:45:20.035934', 'admin', '1989-04-09', 'test09@gmail.com','Harshana','Madusanka', 'Jayamaha', '200020000348', '0771778949', 10009, 10009);
 INSERT INTO student (age, created_at, created_by, dob, email, first_name, last_name, middle_name, nic, tel_no, id, address_id)
 	VALUES (35, '2024-09-21 15:45:20.035934', 'admin', '1989-04-09', 'test10@gmail.com','Harshana','Madusanka', 'Jayamaha', '200020000349', '0771778910', 10010, 10010);
+
+INSERT INTO  course (id, name, fee) 
+		 VALUES(1001, 'Java', 101.1);	
+	

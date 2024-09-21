@@ -1,6 +1,7 @@
 package com.interview.codingtest.service;
 
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.interview.codingtest.dto.CreateStudentResponse;
 import com.interview.codingtest.dto.CreateUpdateStudentReqeust;
+import com.interview.codingtest.dto.StudentDTO;
+import com.interview.codingtest.entity.Course;
 import com.interview.codingtest.entity.Student;
 import com.interview.codingtest.exception.NotFoundException;
 import com.interview.codingtest.mapper.StudentMapper;
+import com.interview.codingtest.repository.CourseRepository;
 import com.interview.codingtest.repository.StudentRepository;
 
 import lombok.AllArgsConstructor;
@@ -21,19 +25,30 @@ public class StudentServiceImpl implements StudentService {
 
     private StudentRepository studentRepository;
 
+    private CourseRepository courseRepository;
+
     private StudentMapper studentMapper;
 
     @Override
     public CreateStudentResponse createStudent(CreateUpdateStudentReqeust request) {
 
-        Student student = studentRepository.save(studentMapper.toEntity(request));
-
+        Student student = studentMapper.toEntity(request);
+        
+        if (request.getCourseIds() != null) {
+            Set<Course> courses = request.getCourseIds().stream()
+                    .map(couresId -> courseRepository.findById(couresId).orElse(null)).filter(course -> course != null)
+                    .collect(Collectors.toSet());
+            student.setCourses(courses);
+        }
+        
+        student = studentRepository.save(student);
+        
         return new CreateStudentResponse(student.getId());
 
     }
 
     @Override
-    public Student updateStudent(String studentId, CreateUpdateStudentReqeust request) {
+    public StudentDTO updateStudent(String studentId, CreateUpdateStudentReqeust request) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -51,19 +66,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<Student> retrieveStudents(int page, int size) {
+    public Page<StudentDTO> retrieveStudents(int page, int size) {
 
         Page<Student> students = studentRepository.findAll(PageRequest.of(page, size));
 
-        return students;
+        return students.map(student -> studentMapper.toDto(student));
+
     }
 
     @Override
-    public Student retrieveStudent(Long studentId) {
+    public StudentDTO retrieveStudent(Long studentId) {
         
-        Optional<Student> student = studentRepository.findById(studentId);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NotFoundException("Student not found for the given id : " + studentId));
         
-        return student.orElseThrow(() -> new NotFoundException("Student not found for the given id : " + studentId));
+        return studentMapper.toDto(student);
     }
 
 }
