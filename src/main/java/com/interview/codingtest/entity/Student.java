@@ -35,6 +35,7 @@ public class Student extends BaseEntity {
 
     private LocalDate dob;
 
+    @Column(unique = true)
     private String nic;
 
     @Column(unique = true)
