@@ -39,9 +39,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean deleteStudent(Long studentId) {
-        // TODO Auto-generated method stub
-        return false;
+    public void deleteStudent(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NotFoundException("Student not found for the given id : " + studentId));
+
+        studentRepository.delete(student);
+
+        if (studentRepository.existsById(studentId)) {
+            throw new RuntimeException("Student not deleted");
+        }
     }
 
     @Override

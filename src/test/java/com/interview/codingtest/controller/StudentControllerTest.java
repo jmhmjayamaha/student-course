@@ -171,11 +171,6 @@ public class StudentControllerTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     class RetrieveStuentsAPITest {
 
-        @BeforeEach
-        void beforeEach() {
-
-        }
-
         @DisplayName("Retrieve students: retrive all")
         @Test
         @Order(1)
@@ -189,12 +184,74 @@ public class StudentControllerTest {
         @DisplayName("Retrieve students: retrive page 0 and size 5")
         @Test
         @Order(2)
-        void retrieveStudentTest() throws Exception {
+        void retrieveStudentPaginationTest() throws Exception {
 
             mockMvc.perform(MockMvcRequestBuilders.get("/api/students").param("page", "0").param("size", "5")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(11))
                     .andExpect(jsonPath("$.numberOfElements").value(5));
+        }
+    }
+
+    @DisplayName("Retrieve student API test.")
+    @Nested
+    @Order(3)
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    class RetreiveStudentAPITest {
+
+        @DisplayName("Retrieve student : retrieve student")
+        @Test
+        @Order(1)
+        void retriveStudentTest() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/students/10011")
+                    .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(10011));
+        }
+
+        @DisplayName("Retrieve student : student not found")
+        @Test
+        @Order(1)
+        void retrieveStudentNotFoundTest() throws Exception {
+            String studentId = "10011111";
+            
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/students/".concat(studentId))
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().is4xxClientError())
+                    .andExpect(jsonPath("$.errorCode").value(HttpStatus.NOT_FOUND.value()))
+                    .andExpect(jsonPath("$.errorMessage")
+                            .value("Student not found for the given id : ".concat(studentId)));
+        }
+
+    }
+
+    @DisplayName("Delete student API test.")
+    @Nested
+    @Order(4)
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    class DeleteStudentAPITest {
+
+        @DisplayName("Delete student : delete student")
+        @Test
+        @Order(1)
+        void retriveStudentTest() throws Exception {
+            mockMvc.perform(
+                    MockMvcRequestBuilders.delete("/api/students/10011").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
+
+        @DisplayName("Delete student : student not found")
+        @Test
+        @Order(2)
+        void retriveStudentNotFoundTest() throws Exception {
+            String studentId = "10011111";
+
+            mockMvc.perform(
+                    MockMvcRequestBuilders.delete("/api/students/".concat(studentId))
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().is4xxClientError())
+                    .andExpect(jsonPath("$.errorCode").value(HttpStatus.NOT_FOUND.value()))
+                    .andExpect(jsonPath("$.errorMessage")
+                            .value("Student not found for the given id : ".concat(studentId)));
         }
     }
 

@@ -55,25 +55,31 @@ public class LoggingAspect {
     }
 
     private String filteredFields(Object result) {
-        StringBuilder filterdField = new StringBuilder();
 
-        Field[] fields = result.getClass().getDeclaredFields();
+        try {
+            StringBuilder filterdField = new StringBuilder();
 
-        for (Field field : fields) {
-            try {
+            Field[] fields = result.getClass().getDeclaredFields();
 
-                field.setAccessible(true);
+            for (Field field : fields) {
+                try {
 
-                if (!ignoreList().contains(field.getName())) {
-                    filterdField.append(field.getName()).append("=").append(field.get(result)).append(", ");
+                    field.setAccessible(true);
+
+                    if (!ignoreList().contains(field.getName())) {
+                        filterdField.append(field.getName()).append("=").append(field.get(result)).append(", ");
+                    }
+                } catch (IllegalArgumentException | IllegalAccessException | InaccessibleObjectException e) {
+                    // if error do nothing
+
                 }
-            } catch (IllegalArgumentException | IllegalAccessException | InaccessibleObjectException e) {
-                // if error do nothing
-
             }
+
+            return filterdField.toString();
+        } catch (Exception e) {
+            return null;
         }
 
-        return filterdField.toString();
     }
 
     private boolean isPathVariable(Annotation[] paramAnnotations) {

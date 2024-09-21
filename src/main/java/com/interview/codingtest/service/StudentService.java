@@ -12,7 +12,7 @@ public interface StudentService {
 
     Student updateStudent(String studentId, CreateUpdateStudentReqeust request);
 
-    boolean deleteStudent(Long studentId);
+    void deleteStudent(Long studentId);
 
     Page<Student> retrieveStudents(int page, int size);
 
