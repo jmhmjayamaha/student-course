@@ -34,9 +34,6 @@ import com.interview.codingtest.dto.CreateUpdateStudentReqeust;
 import com.interview.codingtest.entity.Student;
 import com.interview.codingtest.repository.StudentRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 @TestPropertySource("/application-test.properties")
 @TestClassOrder(ClassOrderer.OrderAnnotation.class)
 @AutoConfigureMockMvc
@@ -60,9 +57,6 @@ public class StudentControllerTest {
     @Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
     class CreateStudentAPITest {
-
-        @PersistenceContext
-        private EntityManager entityManager;
 
         private CreateUpdateStudentReqeust studentRequest;
 
@@ -88,7 +82,7 @@ public class StudentControllerTest {
             studentRequest.setDob(LocalDate.of(1989, 04, 9));
             studentRequest.setTelNo("0774543727");
             studentRequest.setEmail("test@gmail.com");
-            studentRequest.setNic("198920000343");
+            studentRequest.setNic("198920000312");
 
             jdbc.execute(sqlAddStudent);
         }
@@ -96,7 +90,7 @@ public class StudentControllerTest {
         @DisplayName("Create student : create student")
         @Test
         @Order(1)
-        void createStudent() throws Exception {
+        void createStudentTest() throws Exception {
 
             mockMvc.perform(MockMvcRequestBuilders.post("/api/students").contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(studentRequest))).andExpect(status().isCreated());
@@ -111,7 +105,7 @@ public class StudentControllerTest {
         @ParameterizedTest
         @ValueSource(strings = {"firstName", "lastName", "nic", "telNo", "email"})
         @Order(2)
-        void createStudentNotNullContraint(String input) throws Exception {
+        void createStudentNotNullContraintTest(String input) throws Exception {
 
             String message = input + " : must not be empty";
 
@@ -145,17 +139,17 @@ public class StudentControllerTest {
         @ParameterizedTest
         @ValueSource(strings = {"tellNo", "email", "nic"})
         @Order(3)
-        void createStudentDataContraintViolation(String input) throws Exception {
+        void createStudentDataContraintViolationTest(String input) throws Exception {
 
             switch (input) {
-                case "telNo":
-                    studentRequest.setTelNo("0771778945");
+                case "tellNo":
+                    studentRequest.setTelNo("0771778211");
                     break;
                 case "email":
                     studentRequest.setEmail("contraint.violation@gmail.com");
                     break;
                 case "nic":
-                    studentRequest.setNic("200020000343");
+                    studentRequest.setNic("200020000321");
                     break;
             }
 
@@ -168,6 +162,39 @@ public class StudentControllerTest {
         @AfterEach
         void afterEach() {
             jdbc.execute(sqlDeleteStudent);
+        }
+    }
+
+    @DisplayName("Retrieve students API test.")
+    @Nested
+    @Order(2)
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    class RetrieveStuentsAPITest {
+
+        @BeforeEach
+        void beforeEach() {
+
+        }
+
+        @DisplayName("Retrieve students: retrive all")
+        @Test
+        @Order(1)
+        void retrieveAllStudentTest() throws Exception {
+
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/students").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(11))
+                    .andExpect(jsonPath("$.numberOfElements").value(10));
+        }
+
+        @DisplayName("Retrieve students: retrive page 0 and size 5")
+        @Test
+        @Order(2)
+        void retrieveStudentTest() throws Exception {
+
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/students").param("page", "0").param("size", "5")
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(11))
+                    .andExpect(jsonPath("$.numberOfElements").value(5));
         }
     }
 
