@@ -1,0 +1,774 @@
+{
+	"info": {
+		"_postman_id": "ffd557bb-174c-458e-b8e7-86b0ac333fdd",
+		"name": "accordInnovation-coding",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1555695"
+	},
+	"item": [
+		{
+			"name": "create student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"pm.globals.set(\"studentId\", response.studentId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Harshana\",\r\n    \"middleName\":\"\",\r\n    \"lastName\" : \"Jayamaha\",\r\n    \"age\": 35,\r\n    \"dob\":\"1989-04-09\",\r\n    \"telNo\":\"07742327871\",\r\n    \"email\": \"test5@gmail.com\",\r\n    \"nic\":\"12342123141\",\r\n    \"address\": {\r\n        \"street\": \"52\",\r\n        \"city\": \"warakapola\",\r\n        \"state\": \"sabaragamuwa\"\r\n    },\r\n    \"courseIds\": [1,2,3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Harshana\",\r\n    \"middleName\":\"\",\r\n    \"lastName\" : \"Jayamaha\",\r\n    \"age\": 35,\r\n    \"dob\":\"1989-04-09\",\r\n    \"telNo\":\"07742327871\",\r\n    \"email\": \"test5@gmail.com\",\r\n    \"nic\":\"12342123141\",\r\n    \"address\": {\r\n        \"street\": \"52\",\r\n        \"city\": \"warakapola\",\r\n        \"state\": \"sabaragamuwa\"\r\n    },\r\n    \"courseIds\": [1,2,3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 02:38:39 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"studentId\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "retrieve all students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/students?page=0&size=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 02:38:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"firstName\": \"Harshana\",\n            \"middleName\": \"\",\n            \"lastName\": \"Jayamaha\",\n            \"age\": 35,\n            \"dob\": \"1989-04-09\",\n            \"nic\": \"1234212314\",\n            \"telNo\": \"07742327872\",\n            \"email\": \"test2@gmail.com\",\n            \"address\": {\n                \"createdAt\": \"2024-09-22T08:08:16.870762\",\n                \"createdBy\": null,\n                \"updatedAt\": null,\n                \"updatedBy\": null,\n                \"id\": 1,\n                \"street\": \"52\",\n                \"city\": \"warakapola\",\n                \"state\": \"sabaragamuwa\"\n            },\n            \"courses\": []\n        },\n        {\n            \"firstName\": \"Harshana\",\n            \"middleName\": \"\",\n            \"lastName\": \"Jayamaha\",\n            \"age\": 35,\n            \"dob\": \"1989-04-09\",\n            \"nic\": \"12342123141\",\n            \"telNo\": \"07742327871\",\n            \"email\": \"test5@gmail.com\",\n            \"address\": {\n                \"createdAt\": \"2024-09-22T08:08:39.937193\",\n                \"createdBy\": null,\n                \"updatedAt\": null,\n                \"updatedBy\": null,\n                \"id\": 2,\n                \"street\": \"52\",\n                \"city\": \"warakapola\",\n                \"state\": \"sabaragamuwa\"\n            },\n            \"courses\": [\n                {\n                    \"name\": \"Java\",\n                    \"fee\": 100.1\n                }\n            ]\n        },\n        {\n            \"firstName\": \"Harshana\",\n            \"middleName\": \"Jayamaha\",\n            \"lastName\": \"Madusanka\",\n            \"age\": 35,\n            \"dob\": \"1989-04-09\",\n            \"nic\": \"200020000341\",\n            \"telNo\": \"0771778942\",\n            \"email\": \"test02@gmail.com\",\n            \"address\": {\n                \"createdAt\": \"2024-09-21T15:45:20.035934\",\n                \"createdBy\": \"admin\",\n                \"updatedAt\": null,\n                \"updatedBy\": null,\n                \"id\": 10002,\n                \"street\": \"main street 2\",\n                \"city\": \"Colombo\",\n                \"state\": \"sabaragamuwa\"\n            },\n            \"courses\": []\n        },\n        {\n            \"firstName\": \"Harshana\",\n            \"middleName\": \"Jayamaha\",\n            \"lastName\": \"Madusanka\",\n            \"age\": 35,\n            \"dob\": \"1989-04-09\",\n            \"nic\": \"200020000342\",\n            \"telNo\": \"0771778943\",\n            \"email\": \"test03@gmail.com\",\n            \"address\": {\n                \"createdAt\": \"2024-09-21T15:45:20.035934\",\n                \"createdBy\": \"admin\",\n                \"updatedAt\": null,\n                \"updatedBy\": null,\n                \"id\": 10003,\n                \"street\": \"main street 3\",\n                \"city\": \"Kandy\",\n                \"state\": \"Central\"\n            },\n            \"courses\": []\n        },\n        {\n            \"firstName\": \"Harshana\",\n            \"middleName\": \"Jayamaha\",\n            \"lastName\": \"Madusanka\",\n            \"age\": 35,\n            \"dob\": \"1989-04-09\",\n            \"nic\": \"200020000310\",\n            \"telNo\": \"0771778944\",\n            \"email\": \"test04@gmail.com\",\n            \"address\": {\n                \"createdAt\": \"2024-09-21T15:45:20.035934\",\n                \"createdBy\": \"admin\",\n                \"updatedAt\": null,\n                \"updatedBy\": null,\n                \"id\": 10004,\n                \"street\": \"main street 4\",\n                \"city\": \"Kurunegala\",\n                \"state\": \"sabaragamuwa\"\n            },\n            \"courses\": []\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 5,\n        \"sort\": {\n            \"empty\": true,\n            \"unsorted\": true,\n            \"sorted\": false\n        },\n        \"offset\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"last\": false,\n    \"totalElements\": 12,\n    \"totalPages\": 3,\n    \"first\": true,\n    \"size\": 5,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": true,\n        \"unsorted\": true,\n        \"sorted\": false\n    },\n    \"numberOfElements\": 5,\n    \"empty\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "retrieve student by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students/{{studentId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"{{studentId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/students/10011",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"10011"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 03:44:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Harshana\",\n    \"middleName\": \"Jayamaha\",\n    \"lastName\": \"Madusanka\",\n    \"age\": 35,\n    \"dob\": \"1989-04-09\",\n    \"nic\": \"200020000343\",\n    \"telNo\": \"0771778941\",\n    \"email\": \"test01@gmail.com\",\n    \"address\": {\n        \"createdAt\": \"2024-09-21T15:45:20.035934\",\n        \"createdBy\": \"admin\",\n        \"updatedAt\": null,\n        \"updatedBy\": null,\n        \"id\": 10011,\n        \"street\": \"main street 1\",\n        \"city\": \"Warakapola\",\n        \"state\": \"Central\"\n    },\n    \"courses\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "delete student by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/students/{{studentId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"{{studentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"pm.globals.set(\"courseId\", response.courseId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" :\"Java\",\r\n    \"fee\" : 100.1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" :\"Java\",\r\n    \"fee\" : 100.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 03:55:55 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"couseId\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "retrieve courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses?page=0&size=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 02:54:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"name\": \"Java\",\n            \"fee\": 100.1\n        },\n        {\n            \"name\": \"Java\",\n            \"fee\": 101.1\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 5,\n        \"sort\": {\n            \"empty\": true,\n            \"sorted\": false,\n            \"unsorted\": true\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalElements\": 2,\n    \"totalPages\": 1,\n    \"first\": true,\n    \"size\": 5,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": true,\n        \"sorted\": false,\n        \"unsorted\": true\n    },\n    \"numberOfElements\": 2,\n    \"empty\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Retrieve course by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/{{courseId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"{{courseId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses/1001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"1001"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 03:38:13 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Java111\",\n    \"fee\": 100.1\n}"
+				}
+			]
+		},
+		{
+			"name": "delete course by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/1001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"1001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update course",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" :\"Java111\",\r\n    \"fee\" : 100.1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/courses/1001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"1001"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" :\"Java111\",\r\n    \"fee\" : 100.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/courses/1001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"1001"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 03:38:09 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Java111\",\n    \"fee\": 100.1\n}"
+				}
+			]
+		},
+		{
+			"name": "update student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Kashaly\",\r\n    \"middleName\": \"Jayamaha\",\r\n    \"lastName\": \"Madusanka\",\r\n    \"age\": 35,\r\n    \"dob\": \"1989-04-09\",\r\n    \"nic\": \"12342123141\",\r\n    \"telNo\": \"07742327871\",\r\n    \"email\": \"test5@gmail.com\",\r\n    \"address\": {\r\n        \"street\": \"main street 1\",\r\n        \"city\": \"Warakapola\",\r\n        \"state\": \"Central\"\r\n    },\r\n    \"courseIds\": [1, 2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/students/{{studentId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"students",
+						"{{studentId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Harshana\",\r\n    \"middleName\": \"Jayamaha\",\r\n    \"lastName\": \"Madusanka\",\r\n    \"age\": 35,\r\n    \"dob\": \"1989-04-09\",\r\n    \"nic\": \"200020000343\",\r\n    \"telNo\": \"0771778941\",\r\n    \"email\": \"test01@gmail.com\",\r\n    \"address\": {\r\n        \"id\": 10011,\r\n        \"street\": \"main street 1\",\r\n        \"city\": \"Warakapola\",\r\n        \"state\": \"Central\"\r\n    },\r\n    \"courseIds\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/students/10011",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"10011"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 22 Sep 2024 04:05:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Harshana\",\n    \"middleName\": \"Jayamaha\",\n    \"lastName\": \"Madusanka\",\n    \"age\": 35,\n    \"dob\": \"1989-04-09\",\n    \"nic\": \"200020000343\",\n    \"telNo\": \"0771778941\",\n    \"email\": \"test01@gmail.com\",\n    \"address\": {\n        \"createdAt\": null,\n        \"createdBy\": null,\n        \"updatedAt\": null,\n        \"updatedBy\": null,\n        \"id\": 10011,\n        \"street\": \"main street 1\",\n        \"city\": \"Warakapola\",\n        \"state\": \"Central\"\n    },\n    \"courses\": [\n        {\n            \"name\": \"Java\",\n            \"fee\": 100.1\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "create from External Courses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"pm.globals.set(\"courseId\", response.courseId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/courses/external?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"courses",
+						"external"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
