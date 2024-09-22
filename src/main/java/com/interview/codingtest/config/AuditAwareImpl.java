@@ -10,6 +10,8 @@ public class AuditAwareImpl implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
+
+        // Loging user Id can be set here by getting it from spring security context. security isn't implemented
         return Optional.empty();
     }
 

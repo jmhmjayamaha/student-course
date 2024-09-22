@@ -90,10 +90,10 @@ public class CourseController {
     }
 
     @PostMapping("/external")
-    public CourseDTO saveExternalCourses(@RequestParam(value = "id") String id) {
+    public CreateUpdateCourseResponse saveExternalCourses(@RequestParam(value = "id") String id) {
         log.info("Create course from external source.");
 
-        CourseDTO response = courseService.createExternalCourse(id);
+        CreateUpdateCourseResponse response = courseService.createExternalCourse(id);
 
         log.info("Create course from external source done.");
 

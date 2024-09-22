@@ -50,6 +50,9 @@ public class LoggingAspect {
         log.info("Exiting method: {} with result: {}", joinPoint.getSignature(), fileredField);
     }
 
+    /*
+     * This method is used to avoid logging PII information in the log file.
+     */
     private Set<String> ignoreList() {
         return Set.of("nic", "dob", "email");
     }

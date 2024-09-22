@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO createExternalCourse(String id) {
+    public CreateUpdateCourseResponse createExternalCourse(String id) {
         log.info("Calling external API");
 
         CourseApiResponse externalCourse = apiService.callExternalApi(id);
@@ -83,7 +83,7 @@ public class CourseServiceImpl implements CourseService {
 
         Course course = courseRepository.save(courseMapper.toEntityFromExternalCourse(externalCourse));
 
-        return courseMapper.toDto(course);
+        return new CreateUpdateCourseResponse(course.getId());
     }
 
 }

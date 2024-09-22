@@ -18,6 +18,6 @@ public interface CourseService {
 
     CourseDTO retrieveCourse(Long courseId);
 
-    CourseDTO createExternalCourse(String id);
+    CreateUpdateCourseResponse createExternalCourse(String id);
 
 }
