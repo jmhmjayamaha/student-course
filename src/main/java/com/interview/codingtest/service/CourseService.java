@@ -17,4 +17,7 @@ public interface CourseService {
     Page<CourseDTO> retrieveCourses(int page, int size);
 
     CourseDTO retrieveCourse(Long courseId);
+
+    CourseDTO createExternalCourse(String id);
+
 }

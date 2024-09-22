@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.interview.codingtest.dto.CourseApiResponse;
 import com.interview.codingtest.dto.CourseDTO;
 import com.interview.codingtest.dto.CreateUpdateCourseRequest;
 import com.interview.codingtest.dto.CreateUpdateCourseResponse;
@@ -23,6 +24,8 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
     private CourseMapper courseMapper;
+
+    private ApiService apiService;
 
     @Override
     public CreateUpdateCourseResponse createCourse(CreateUpdateCourseRequest request) {
@@ -66,6 +69,19 @@ public class CourseServiceImpl implements CourseService {
     public CourseDTO retrieveCourse(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new NotFoundException("Course not found for the given id : " + courseId));
+
+        return courseMapper.toDto(course);
+    }
+
+    @Override
+    public CourseDTO createExternalCourse(String id) {
+        log.info("Calling external API");
+
+        CourseApiResponse externalCourse = apiService.callExternalApi(id);
+
+        log.info("Calling external API done.");
+
+        Course course = courseRepository.save(courseMapper.toEntityFromExternalCourse(externalCourse));
 
         return courseMapper.toDto(course);
     }
