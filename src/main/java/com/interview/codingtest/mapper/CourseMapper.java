@@ -1,7 +1,9 @@
 package com.interview.codingtest.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
+import com.interview.codingtest.dto.CourseDTO;
 import com.interview.codingtest.dto.CreateUpdateCourseRequest;
 import com.interview.codingtest.entity.Course;
 
@@ -9,5 +11,9 @@ import com.interview.codingtest.entity.Course;
 public interface CourseMapper {
 
     Course toEntity(CreateUpdateCourseRequest request);
+
+    CourseDTO toDto(Course course);
+
+    void updateCourseFromDTO(CreateUpdateCourseRequest request, @MappingTarget Course course);
 
 }

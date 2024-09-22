@@ -1,11 +1,14 @@
 package com.interview.codingtest.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.interview.codingtest.dto.CourseDTO;
 import com.interview.codingtest.dto.CreateUpdateCourseRequest;
 import com.interview.codingtest.dto.CreateUpdateCourseResponse;
 import com.interview.codingtest.entity.Course;
+import com.interview.codingtest.exception.NotFoundException;
 import com.interview.codingtest.mapper.CourseMapper;
 import com.interview.codingtest.repository.CourseRepository;
 
@@ -30,27 +33,41 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CreateUpdateCourseResponse updateCourse(Long couseId, CreateUpdateCourseRequest request) {
-        // TODO Auto-generated method stub
-        return null;
+    public CourseDTO updateCourse(Long courseId, CreateUpdateCourseRequest request) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new NotFoundException("Course not found for the given id : " + courseId));
+
+        courseMapper.updateCourseFromDTO(request, course);
+
+        return courseMapper.toDto(courseRepository.save(course));
     }
 
     @Override
-    public void deleteCourse() {
-        // TODO Auto-generated method stub
+    public void deleteCourse(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new NotFoundException("Course not found for the given id : " + courseId));
+
+        courseRepository.delete(course);
+
+        if (courseRepository.existsById(courseId)) {
+            throw new RuntimeException("Course not deleted");
+        }
 
     }
 
     @Override
-    public Page<Course> retrieveCourses(int page, int size) {
-        // TODO Auto-generated method stub
-        return null;
+    public Page<CourseDTO> retrieveCourses(int page, int size) {
+        Page<Course> courses = courseRepository.findAll(PageRequest.of(page, size));
+
+        return courses.map(course -> courseMapper.toDto(course));
     }
 
     @Override
-    public Course retrieveStudent(Long courseId) {
-        // TODO Auto-generated method stub
-        return null;
+    public CourseDTO retrieveCourse(Long courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new NotFoundException("Course not found for the given id : " + courseId));
+
+        return courseMapper.toDto(course);
     }
 
 }

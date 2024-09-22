@@ -10,7 +10,7 @@ public interface StudentService {
 
     CreateStudentResponse createStudent(CreateUpdateStudentReqeust request);
 
-    StudentDTO updateStudent(String studentId, CreateUpdateStudentReqeust request);
+    StudentDTO updateStudent(Long studentId, CreateUpdateStudentReqeust request);
 
     void deleteStudent(Long studentId);
 

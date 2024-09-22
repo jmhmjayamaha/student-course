@@ -48,9 +48,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDTO updateStudent(String studentId, CreateUpdateStudentReqeust request) {
-        // TODO Auto-generated method stub
-        return null;
+    public StudentDTO updateStudent(Long studentId, CreateUpdateStudentReqeust request) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NotFoundException("Student not found for the given id : " + studentId));
+
+        if (request.getCourseIds() != null) {
+            Set<Course> courses = request.getCourseIds().stream()
+                    .map(couresId -> courseRepository.findById(couresId).orElse(null)).filter(course -> course != null)
+                    .collect(Collectors.toSet());
+            student.setCourses(courses);
+        }
+
+        studentMapper.updateStudentFromDTO(request, student);
+
+        Student updatedStudent = studentRepository.save(student);
+
+        return studentMapper.toDto(updatedStudent);
     }
 
     @Override

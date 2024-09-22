@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,5 +73,18 @@ public class StudentController {
         studentService.deleteStudent(studentId);
 
         log.info("Delete student done.");
+    }
+
+    @PutMapping("/{student-id}")
+    public StudentDTO updateStudent(@PathVariable("student-id") Long studentId,
+            @RequestBody @Validated CreateUpdateStudentReqeust request) {
+
+        log.info("Update course.");
+
+        StudentDTO response = studentService.updateStudent(studentId, request);
+
+        log.info("Update course done.");
+
+        return response;
     }
 }
